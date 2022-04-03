@@ -1,20 +1,16 @@
-import React from 'react';
+import React, { MouseEventHandler } from 'react';
 
 interface Props {
-    incGood: () => void,
-    incNeutral: () => void,
-    incBad: () => void,
+    options:string[],
+    onLeaveFeedback: (e:React.MouseEvent) => void,
 }
 
 const FeedbackOptions: React.FC<Props> = (props) => {
-    const {incGood, incNeutral, incBad} = props;
-
+    const { options, onLeaveFeedback } = props;
     
     return (
         <div>
-          <button onClick={incGood}>Good</button>
-          <button onClick={incNeutral}>Neutral</button>
-          <button onClick={incBad}>Bad</button>
+            {options.map(option => <button onClick={onLeaveFeedback}>{option}</button>)}
         </div>
     )
 };

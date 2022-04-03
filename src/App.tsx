@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 
 //components
 import Statistics from './components/statistics';
@@ -15,7 +15,9 @@ interface State {
   good: number,
   neutral: number,
   bad: number
- }
+}
+ 
+const options: string[] = ['Good', 'Neutral', 'Bad'];
 
 
 class App extends Component<Props, State> {
@@ -25,6 +27,12 @@ class App extends Component<Props, State> {
     neutral: 0,
     bad: 0
   };
+
+  onLeaveFeedback = (e:React.MouseEvent) => {
+    if (e.currentTarget.textContent === 'Good') this.incGood();
+    if (e.currentTarget.textContent === 'Neutral') this.incNeutral();
+    if( e.currentTarget.textContent === 'Bad') this.incBad()
+  }
   
   incGood = () => {
     this.setState(prevState => {
@@ -62,14 +70,12 @@ class App extends Component<Props, State> {
   render() {
     const { good, neutral, bad } = this.state;
     const total = this.countTotalFeedback();
-    
     return (
       <div className="App">
         <Section title={'Please leave feedback'}>
-        <FeedbackOptions
-          incGood={this.incGood}
-          incNeutral={this.incNeutral}
-          incBad={this.incBad}
+          <FeedbackOptions
+            options={options }
+            onLeaveFeedback={this.onLeaveFeedback }
         />
         </Section>
 
